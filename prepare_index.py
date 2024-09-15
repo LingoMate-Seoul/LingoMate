@@ -55,7 +55,7 @@ def main():
     }
 
     # Initialize Elasticsearch client
-    es_client = Elasticsearch()
+    es_client = Elasticsearch('http://localhost:9200')
 
     # Process data
     data = read_and_transform_csv(csv_file_path)

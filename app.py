@@ -17,7 +17,7 @@ from prompt_helper import ask_LLM, suggest_categories
 import yaml
 from yaml.loader import SafeLoader
 
-es_client = Elasticsearch()
+es_client = Elasticsearch('http://localhost:9200')
 index_name = "learning-english"
 
 with open('auth.yaml') as file:
@@ -81,26 +81,22 @@ elif authentication_status == False:
 elif authentication_status == None:
     st.warning('Please enter your username and password')
 
-if "conversation_id" not in st.session_state:
-    st.session_state.conversation_id = str(uuid.uuid4())
-
 # main widget
 entry_options = ["please select an option", "pick a category you are interested in", "Any question in your mind?"]
 selected_option = st.selectbox("please select an option", entry_options)
 
-if authentication_status is True:
-    if selected_option != "please select an option":
-        if selected_option == "pick a category you are interested in":
-            suggest_categories()
-        else:
-            user_query = st.text_input("Any question in your mind?")
-            if st.button("Search"):
-                if user_query:
-                    result = is_query_similar(user_query)
-                    if not result:
-                        st.warning("Sorry! I'm here to help with language expressions.\nCould you ask me something related to that?")
-                    else:
-                    
+if selected_option != "please select an option":
+    if selected_option == "pick a category you are interested in":
+        suggest_categories()
+    else:
+        user_query = st.text_input("Any question in your mind?")
+        if st.button("Search"):
+            if user_query:
+                result = is_query_similar(user_query)
+                if not result:
+                    st.warning("Sorry! I'm here to help with language expressions.\nCould you ask me something related to that?")
+                else:
+                    if authentication_status:
                         with st.spinner("Searching..."):
                             # ask_LLM
                             answer, token_usage, response_time, search_results = ask_LLM(user_query)
@@ -124,7 +120,7 @@ if authentication_status is True:
                             if neg:
                                 save_feedback(username, st.session_state.conversation_id, -1)
                                 st.write("Thanks for your valuable feedback! We will try to improve")
-                else:
-                    st.warning("Please enter a query.")
-    else:
-        st.subheader("Please select an option.")
+            else:
+                st.warning("Please enter a query.")
+else:
+    st.subheader("Please select an option.")
