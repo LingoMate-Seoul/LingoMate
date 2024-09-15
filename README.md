@@ -3,19 +3,19 @@
 https://www.notion.so/Summary-3f194f4e03e5485fbbcdc5fd11892c57
 
 ## User Flow 
-![Sample Image](/UserFlow.png)
+![Sample Image](pics/UserFlow.png)
 
 
 ## Architecture
-![Sample Image](/Diagram.png)
+![Sample Image](pics/Diagram.png)
 
 ## Monitoring 
 
-![Sample Image](/Monitoring.png)
+![Sample Image](pics/Monitoring.png)
 
 ## RAG Tracing  
 
-![Sample Image](/RAG_Tracing.png)
+![Sample Image](pics/RAG_Tracing.png)
 
 
 ## Reproduction
