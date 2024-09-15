@@ -32,8 +32,8 @@ def index_documents(es_client, index_name, json_file_path):
     print("Indexing complete.")
 
 def main():
-    csv_file_path = 'situations.csv'
-    json_file_path = 'situations.json'
+    csv_file_path = 'data/situations.csv'
+    json_file_path = 'data/situations.json'
     index_name = 'learning-english'
 
     index_settings = {
